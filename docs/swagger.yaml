@@ -1,0 +1,487 @@
+definitions:
+  errcode.Error:
+    type: object
+  model.Member:
+    properties:
+      address:
+        type: string
+      created_on:
+        type: integer
+      deleted_on:
+        type: integer
+      email:
+        type: string
+      id:
+        type: integer
+      is_del:
+        type: integer
+      modified_on:
+        type: integer
+      name:
+        type: string
+      phone:
+        type: string
+    type: object
+  model.Product:
+    properties:
+      created_on:
+        type: integer
+      deleted_on:
+        type: integer
+      id:
+        type: integer
+      is_del:
+        type: integer
+      modified_on:
+        type: integer
+      name:
+        type: string
+      saleprice:
+        type: integer
+      stock:
+        type: integer
+      supplier:
+        type: string
+    type: object
+  model.Records:
+    properties:
+      created_on:
+        type: integer
+      deleted_on:
+        type: integer
+      id:
+        type: integer
+      is_del:
+        type: integer
+      modified_on:
+        type: integer
+      product:
+        type: string
+      purchaser:
+        type: string
+      saleprice:
+        type: integer
+      salesum:
+        type: integer
+    type: object
+info:
+  contact: {}
+  description: Go 语言编程之旅：一起用 Go 做项目
+  termsOfService: https://github.com/go-programming-tour-book
+  title: 博客系统
+  version: "1.0"
+paths:
+  /api/v1/members:
+    post:
+      parameters:
+      - description: 用戶名稱
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: 連絡電話
+        in: body
+        name: phone
+        required: true
+        schema:
+          type: string
+      - description: 聯絡地址
+        in: body
+        name: address
+        required: true
+        schema:
+          type: string
+      - description: 電子信箱
+        in: body
+        name: email
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.Member'
+        "400":
+          description: 請求錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 註冊用戶
+  /api/v1/members/{id}:
+    delete:
+      parameters:
+      - description: 用戶ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            type: string
+        "400":
+          description: 請求錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 删除用戶
+    get:
+      parameters:
+      - description: 用戶ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.Member'
+        "400":
+          description: 請求錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 內部錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 獲取一個用戶
+    put:
+      parameters:
+      - description: 用戶ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 用戶名稱
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: 連絡電話
+        in: body
+        name: phone
+        required: true
+        schema:
+          type: string
+      - description: 聯絡地址
+        in: body
+        name: address
+        required: true
+        schema:
+          type: string
+      - description: 電子信箱
+        in: body
+        name: email
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.Member'
+        "400":
+          description: 請求錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 更新用戶資料
+  /api/v1/products:
+    post:
+      parameters:
+      - description: 產品名稱
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: 存貨數量
+        in: body
+        name: stock
+        required: true
+        schema:
+          type: integer
+      - description: 產品售價
+        in: body
+        name: saleprice
+        required: true
+        schema:
+          type: integer
+      - description: 供應商
+        in: body
+        name: supplier
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.Product'
+        "400":
+          description: 請求錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 建立產品
+  /api/v1/products/{id}:
+    delete:
+      parameters:
+      - description: 產品ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            type: string
+        "400":
+          description: 請求錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 删除產品資料
+    get:
+      parameters:
+      - description: 產品ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.Product'
+        "400":
+          description: 請求錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 獲取單一產品
+    put:
+      parameters:
+      - description: 產品ID
+        in: body
+        name: id
+        required: true
+        schema:
+          type: integer
+      - description: 產品名稱
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: 存貨數量
+        in: body
+        name: stock
+        required: true
+        schema:
+          type: integer
+      - description: 產品售價
+        in: body
+        name: saleprice
+        required: true
+        schema:
+          type: integer
+      - description: 供應商
+        in: body
+        name: supplier
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.Product'
+        "400":
+          description: 請求錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 更新產品資料
+  /api/v1/recordss:
+    post:
+      parameters:
+      - description: 產品名稱
+        in: body
+        name: product
+        required: true
+        schema:
+          type: string
+      - description: 產品單價
+        in: body
+        name: saleprice
+        required: true
+        schema:
+          type: integer
+      - description: 產品數量
+        in: body
+        name: salesum
+        required: true
+        schema:
+          type: integer
+      - description: 購買人
+        in: body
+        name: purchaser
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.Records'
+        "400":
+          description: 請求錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 建立交易紀錄
+  /api/v1/recordss/{id}:
+    delete:
+      parameters:
+      - description: 紀錄ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            type: string
+        "400":
+          description: 請求錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 删除交易紀錄
+    get:
+      parameters:
+      - description: 紀錄ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.Records'
+        "400":
+          description: 請求錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 獲取交易紀錄
+    put:
+      parameters:
+      - description: 紀錄ID
+        in: body
+        name: id
+        required: true
+        schema:
+          type: integer
+      - description: 產品名稱
+        in: body
+        name: product
+        required: true
+        schema:
+          type: string
+      - description: 產品售價
+        in: body
+        name: saleprice
+        required: true
+        schema:
+          type: integer
+      - description: 產品數量
+        in: body
+        name: salesum
+        required: true
+        schema:
+          type: integer
+      - description: 購買人
+        in: body
+        name: purchaser
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.Records'
+        "400":
+          description: 請求錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部錯誤
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 更新交易紀錄
+swagger: "2.0"
